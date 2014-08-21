@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.1.2"
 
+# Thoughtbot
 gem "airbrake"
 gem "bourbon", "~> 3.2.1"
 gem "coffee-rails"
@@ -22,6 +23,10 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
+
+# My Stuff
+# gem 'sportsdata'
+gem 'sportsdata', path: '/Users/pauldornfeld/Dropbox/Code/Gems/sportsdata'
 
 group :development do
   gem "spring"

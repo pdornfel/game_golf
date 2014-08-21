@@ -1,3 +1,13 @@
+PATH
+  remote: /Users/pauldornfeld/Dropbox/Code/Gems/sportsdata
+  specs:
+    sportsdata (1.20.3)
+      activesupport
+      faraday
+      faraday_middleware
+      hashie
+      multi_xml
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -86,11 +96,16 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     flutie (2.0.0)
     formulaic (0.1.0)
       activesupport
       capybara
       i18n
+    hashie (3.2.0)
     high_voltage (2.2.1)
     highline (1.6.21)
     hike (1.2.3)
@@ -119,6 +134,8 @@ GEM
     mini_portile (0.6.0)
     minitest (5.4.0)
     multi_json (1.10.1)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     neat (1.5.1)
       bourbon (>= 3.1)
       sass (~> 3.2.19)
@@ -261,6 +278,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   shoulda-matchers
   simple_form
+  sportsdata!
   spring
   spring-commands-rspec
   timecop

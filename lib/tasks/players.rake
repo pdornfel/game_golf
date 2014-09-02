@@ -9,8 +9,8 @@ namespace :players do
       options[:uid] = player.uid
       options[:first_name] = player.first_name
       options[:last_name] = player.last_name
-      options[:height] = player.height
-      options[:weight] = player.weight
+      options[:height] = player.height.to_i
+      options[:weight] = player.weight.to_i
       options[:birthday] = player.birthday
       options[:country] = player.country
       options[:birth_place] = player.birth_place
@@ -27,22 +27,22 @@ namespace :players do
     stats.each do |data|
       player = Player.find_by(uid: data.player_uid)
       options = {}
-      options[:events_played] = data.events_played
-      options[:first_place] = data.first_place
-      options[:second_place] = data.second_place
-      options[:third_place] = data.third_place
-      options[:top_10] = data.top_10
-      options[:top_25] = data.top_25
-      options[:withdrawals] = data.withdrawals
-      options[:earnings] = data.earnings
-      options[:earnings_rank] = data.earnings_rank
-      options[:drive_avg] = data.drive_avg
-      options[:drive_acc] = data.drive_acc
-      options[:gir_pct] = data.gir_pct
-      unless data.world_rank == 0
-        options[:world_rank] = data.world_rank
+      options[:events_played] = data.events_played.to_i
+      options[:first_place] = data.first_place.to_i
+      options[:second_place] = data.second_place.to_i
+      options[:third_place] = data.third_place.to_i
+      options[:top_10] = data.top_10.to_i
+      options[:top_25] = data.top_25.to_i
+      options[:withdrawals] = data.withdrawals.to_i
+      options[:earnings] = data.earnings.to_i
+      options[:earnings_rank] = data.earnings_rank.to_i
+      options[:drive_avg] = data.drive_avg.to_i
+      options[:drive_acc] = data.drive_acc.to_i
+      options[:gir_pct] = data.gir_pct.to_i
+      unless data.world_rank == '0'
+        options[:world_rank] = data.world_rank.to_i
       end
-      options[:scoring_avg] = data.scoring_avg
+      options[:scoring_avg] = data.scoring_avg.to_i
 
       player.update(options)
       puts "#{player.first_name} #{player.last_name} updated with world rank of => #{data.world_rank}"

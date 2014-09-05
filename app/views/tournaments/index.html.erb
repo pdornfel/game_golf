@@ -1,1 +1,8 @@
-<%=  %>
+<% @users.each do |user| %>
+  <%= user.name %>
+  <br>
+  <% user.players.each do |player| %>
+    <%= player.first_name %> <%= player.last_name %>
+    <%= player.world_rank %>
+  <% end %>
+<% end %>

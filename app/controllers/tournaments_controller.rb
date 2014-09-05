@@ -1,5 +1,6 @@
 class TournamentsController < ApplicationController
   def index
-    @schedule = Sportsdata.golf.tournament_schedule
+    @schedule = Tournament.all
+    @users = User.all
   end
 end

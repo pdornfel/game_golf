@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140902143155) do
+ActiveRecord::Schema.define(version: 20140902182449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "courses", force: true do |t|
+    t.integer  "uid"
+    t.string   "course_name"
+    t.string   "city"
+    t.string   "description"
+    t.integer  "par"
+    t.integer  "yardage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -32,11 +43,22 @@ ActiveRecord::Schema.define(version: 20140902143155) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "picks", force: true do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "player_id",  null: false
+  create_table "holes", force: true do |t|
+    t.integer  "course_id"
+    t.string   "description"
+    t.integer  "hole_number"
+    t.integer  "hole_yardage"
+    t.integer  "par"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "picks", force: true do |t|
+    t.integer  "user_id",       null: false
+    t.integer  "player_id",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tournament_id", null: false
   end
 
   create_table "players", force: true do |t|
@@ -64,6 +86,21 @@ ActiveRecord::Schema.define(version: 20140902143155) do
     t.integer  "gir_pct"
     t.integer  "world_rank"
     t.integer  "scoring_avg"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tournaments", force: true do |t|
+    t.integer  "uid"
+    t.string   "event_name"
+    t.string   "venue_name"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.integer  "purse"
+    t.date     "tournament_start"
+    t.date     "tournament_end"
+    t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

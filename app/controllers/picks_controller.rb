@@ -1,8 +1,11 @@
 class PicksController < ApplicationController
 
   def index
-    @schedule = Tournament.all
+    @tournaments = Tournament.all
     @users = User.all
+  end
+
+  def show
   end
 
 end

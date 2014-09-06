@@ -1,0 +1,21 @@
+<b class='name_header'><%= User.first.name %></b>
+<br>
+<br>
+
+
+<table>
+  <tr>
+    <th>Event Name</th>
+    <th>Pick</th>
+    <th></th>
+  </tr>
+
+  <% @tournaments.each do |tournament| %>
+    <tr>
+      <td><%= tournament.event_name %></td>
+      <td><%= tournament.pick(User.first).try(:player).try(:first_name) %> <%= tournament.pick(User.first).try(:player).try(:last_name) %></td>
+      <td><%= link_to("More Info", pick_path(tournament)) %></td>
+    <tr>
+  <% end %>
+
+</table>

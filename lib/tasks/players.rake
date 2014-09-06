@@ -2,7 +2,6 @@ namespace :players do
 
   desc "seed players table"
   task :seed_profiles => :environment do
-    Player.destroy_all
     players = Sportsdata.golf.player_profiles
     players.each_with_index do |player, index|
       options = {}
@@ -16,7 +15,7 @@ namespace :players do
       options[:birth_place] = player.birth_place
       options[:turned_pro] = player.turned_pro
       options[:sports_data_updated_on] = player.updated
-      Player.create(options)
+      Player.find_or_create_by(options)
       puts "#{player.first_name} #{player.last_name} - #{index + 1}"
     end
   end

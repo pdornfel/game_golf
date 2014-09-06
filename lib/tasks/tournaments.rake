@@ -3,9 +3,6 @@ namespace :tournaments do
   desc 'populate tournaments'
   task :do_all => :environment do
     tournaments = Sportsdata.golf.tournament_schedule
-    Course.destroy_all
-    Hole.destroy_all
-    Tournament.destroy_all
 
     tournaments.each_with_index do |tournament, index|
 
@@ -19,7 +16,7 @@ namespace :tournaments do
         course_options[:description] = tournament[:course_info]["description"]
         course_options[:par] = tournament[:course_info]["par"]
         course_options[:yardage] = tournament[:course_info]["yardage"]
-        course = Course.create(course_options)
+        course = Course.find_or_create_by(course_options)
 
         tournament[:course_info]["holes"]["hole"].each do |hole|
           hole_options = {}
@@ -27,7 +24,7 @@ namespace :tournaments do
           hole_options[:hole_number] = hole["number"]
           hole_options[:hole_yardage] = hole["yardage"]
           hole_options[:par] = hole["par"]
-          Hole.create(hole_options)
+          Hole.find_or_create_by(hole_options)
         end
 
         tournament_options = {}
@@ -41,7 +38,7 @@ namespace :tournaments do
         tournament_options[:tournament_start] = tournament[:event_start_date]
         tournament_options[:tournament_end] = tournament[:event_end_date]
         tournament_options[:course_id] = course.id
-        tour = Tournament.create(tournament_options)
+        tour = Tournament.find_or_create_by(tournament_options)
         puts tour.event_name
       
       end

@@ -17,9 +17,11 @@ ActiveRecord::Schema.define(version: 20140902182449) do
   enable_extension "plpgsql"
 
   create_table "courses", force: true do |t|
-    t.integer  "uid"
+    t.string   "uid"
     t.string   "course_name"
     t.string   "city"
+    t.string   "state"
+    t.string   "country"
     t.string   "description"
     t.integer  "par"
     t.integer  "yardage"
@@ -91,7 +93,7 @@ ActiveRecord::Schema.define(version: 20140902182449) do
   end
 
   create_table "tournaments", force: true do |t|
-    t.integer  "uid"
+    t.string   "uid"
     t.string   "event_name"
     t.string   "venue_name"
     t.string   "city"

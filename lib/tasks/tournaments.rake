@@ -1,32 +1,50 @@
 namespace :tournaments do 
 
   desc 'populate tournaments'
-  task :populate_tournaments => :environemnt do
+  task :do_all => :environment do
     tournaments = Sportsdata.golf.tournament_schedule
+    Course.destroy_all
+    Hole.destroy_all
+    Tournament.destroy_all
+
+    tournaments.each_with_index do |tournament, index|
+
+      unless tournament[:course_info].kind_of?(Array)
+        course_options = {}
+        course_options[:uid] = tournament[:course_info]["id"]
+        course_options[:course_name] = tournament[:course_info]["name"]
+        course_options[:city] = tournament[:city]
+        course_options[:state] = tournament[:state]
+        course_options[:country] = tournament[:country]
+        course_options[:description] = tournament[:course_info]["description"]
+        course_options[:par] = tournament[:course_info]["par"]
+        course_options[:yardage] = tournament[:course_info]["yardage"]
+        course = Course.create(course_options)
+
+        tournament[:course_info]["holes"]["hole"].each do |hole|
+          hole_options = {}
+          hole_options[:course_id] = course.id
+          hole_options[:hole_number] = hole["number"]
+          hole_options[:hole_yardage] = hole["yardage"]
+          hole_options[:par] = hole["par"]
+          Hole.create(hole_options)
+        end
+
+        tournament_options = {}
+        tournament_options[:uid] = tournament[:event_id]
+        tournament_options[:event_name] = tournament[:event_name]
+        tournament_options[:venue_name] = tournament[:venue_name]
+        tournament_options[:city] = tournament[:city]
+        tournament_options[:state] = tournament[:state]
+        tournament_options[:country] = tournament[:country]
+        tournament_options[:purse] = tournament[:purse]
+        tournament_options[:tournament_start] = tournament[:event_start_date]
+        tournament_options[:tournament_end] = tournament[:event_end_date]
+        tournament_options[:course_id] = course.id
+        tour = Tournament.create(tournament_options)
+        puts tour.event_name
+      
+      end
+    end
   end
-
 end
-
-
-
-
-
-
-
-
-
-
-
-#<Sportsdata::Golf::Event 
-
-# event_id="8d463c8b-e259-482d-8729-3c9efa877a22", 
-# event_name="Frys.com Open", 
-# event_type="stroke", 
-# event_purse=nil, 
-# event_start_date="2013-10-10", 
-# event_end_date="2013-10-13", 
-# venue_name="CordeValle Golf Club", 
-# city="San Martin", state="California", 
-# country="USA", 
-
-# course_info={"description"=>nil, "holes"=>{"hole"=>[{"number"=>"1", "par"=>"4", "yardage"=>"422"}, {"number"=>"2", "par"=>"4", "yardage"=>"434"}, {"number"=>"3", "par"=>"3", "yardage"=>"230"}, {"number"=>"4", "par"=>"4", "yardage"=>"418"}, {"number"=>"5", "par"=>"4", "yardage"=>"454"}, {"number"=>"6", "par"=>"4", "yardage"=>"480"}, {"number"=>"7", "par"=>"3", "yardage"=>"166"}, {"number"=>"8", "par"=>"4", "yardage"=>"478"}, {"number"=>"9", "par"=>"5", "yardage"=>"555"}, {"number"=>"10", "par"=>"4", "yardage"=>"425"}, {"number"=>"11", "par"=>"3", "yardage"=>"236"}, {"number"=>"12", "par"=>"5", "yardage"=>"605"}, {"number"=>"13", "par"=>"4", "yardage"=>"407"}, {"number"=>"14", "par"=>"4", "yardage"=>"497"}, {"number"=>"15", "par"=>"5", "yardage"=>"568"}, {"number"=>"16", "par"=>"3", "yardage"=>"210"}, {"number"=>"17", "par"=>"4", "yardage"=>"358"}, {"number"=>"18", "par"=>"4", "yardage"=>"425"}]}, "id"=>"68ffd2ac-802c-40e5-92bb-4bc8eede5158", "name"=>"CordeValle", "yardage"=>"7368", "par"=>"71"}>

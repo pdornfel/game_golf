@@ -1,0 +1,63 @@
+<b><%= User.first.name %></b>
+<br>
+<%= link_to "Back", user_path(User.first) %>
+
+<br>
+
+<table>
+  <tr>
+    <th>Event Name</th>
+    <th>Venue Name</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Country</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Purse</th>
+  </tr>
+  <tr>
+    <td><%= @tournament.event_name %></td>
+    <td><%= @tournament.venue_name %></td>
+    <td><%= @tournament.city %></td>
+    <td><%= @tournament.state %></td>
+    <td><%= @tournament.country %></td>
+    <td><%= @tournament.tournament_start %></td>
+    <td><%= @tournament.tournament_end %></td>
+    <td><%= @tournament.purse %></td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+<table>
+  <tr>
+    <th>Course Name</th>
+    <th>Par</th>
+    <th>Yardage</th>
+  </tr>
+  <tr>
+    <td><%= @tournament.course.course_name %></td>
+    <td><%= @tournament.course.par %></td>
+    <td><%= @tournament.course.yardage %></td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+<table>
+  <tr>
+    <th>Hole Number</th>
+    <th>Par</th>
+    <th>Yardage</th>
+  <tr>
+<% @tournament.course.holes.each do |hole| %> 
+  <tr>
+    <td><%= hole.hole_number %></td>
+    <td><%= hole.par %></td>
+    <td><%= hole.hole_yardage %></td>
+  </tr>
+<% end %>
+
+</table>

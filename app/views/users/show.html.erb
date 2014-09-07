@@ -1,0 +1,30 @@
+<b class='name_header'><%= User.first.name %></b>
+<br>
+<%= link_to("All Users", users_path) %>
+<br>
+<%= link_to "Player Reserach", players_path %>
+
+<table>
+  <tr>
+    <th>Event Name</th>
+    <th>Pick</th>
+    <th>Pick Dropdown</th>
+    <th>Submit</th>
+    <th>Destroy</th>
+  </tr>
+
+  <% @tournaments.each do |tournament| %>
+    <tr>
+      <td><%= link_to(tournament.event_name, tournament_path(tournament)) %></td>
+      <td><%= tournament.pick(User.first).try(:player).try(:first_name) %> <%= tournament.pick(User.first).try(:player).try(:last_name) %></td>
+
+    <%= form_tag("/picks", method: "create") do %>
+      <td><%= collection_select(:pick, :player_id, @players, :id, :name, include_blank: :true) %></td>
+      <%= hidden_field_tag(:tournament_id, tournament.id) %>
+      <td><%= submit_tag("Submit Pick") %></td>
+    <% end %>
+      <td><%= link_to "Destroy Pick", pick_path(tournament), method: 'delete' %></td>
+    <tr>
+  <% end %>
+
+</table>

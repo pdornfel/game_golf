@@ -1,3 +1,6 @@
+<%= link_to "Back", user_path(User.first) %>
+<br>
+
 <% @players.each do |player| %>
   <%= render player %>
 <% end %>

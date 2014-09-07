@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>User</th>
+    <th>Total Earnings To Date</th>
+    <th>Last Updated On</th>
+    <th></th>
+  <tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= user.name %></td>
+    <td>$0.00</td>
+    <td></td>
+    <td><%= link_to("Go To User", user_path(user)) %></td>
+  </tr>
+  <% end %>
+</table>
+  

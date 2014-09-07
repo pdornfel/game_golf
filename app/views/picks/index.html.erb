@@ -2,7 +2,6 @@
 <br>
 <br>
 
-
 <table>
   <tr>
     <th>Event Name</th>
@@ -14,7 +13,7 @@
     <tr>
       <td><%= tournament.event_name %></td>
       <td><%= tournament.pick(User.first).try(:player).try(:first_name) %> <%= tournament.pick(User.first).try(:player).try(:last_name) %></td>
-      <td><%= link_to("More Info", pick_path(tournament)) %></td>
+      <td><%= link_to("More Info", tournament_path(tournament)) %></td>
     <tr>
   <% end %>
 

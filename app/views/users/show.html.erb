@@ -7,6 +7,7 @@
 <table>
   <tr>
     <th>Event Name</th>
+    <th>Purse</th>
     <th>Pick</th>
     <th>Pick Dropdown</th>
     <th>Submit</th>
@@ -16,6 +17,7 @@
   <% @tournaments.each do |tournament| %>
     <tr>
       <td><%= link_to(tournament.event_name, tournament_path(tournament)) %></td>
+      <td>$<%= tournament.purse %></td>
       <td><%= tournament.pick(User.first).try(:player).try(:first_name) %> <%= tournament.pick(User.first).try(:player).try(:last_name) %></td>
 
     <%= form_tag("/picks", method: "create") do %>

@@ -1,8 +1,15 @@
 namespace :tournaments do 
 
-  desc 'populate tournaments'
+  desc 'Do All'
   task :do_all => :environment do
+    Rake::Task['tournaments:populate_tournaments'].invoke
+    Rake::Task['tournaments:update_leaderboards'].invoke
+  end
+
+  desc 'populate tournaments'
+  task :populate_tournaments => :environment do
     tournaments = Sportsdata.golf.tournament_schedule
+    sleep(1)
 
     tournaments.each_with_index do |tournament, index|
 
@@ -44,4 +51,56 @@ namespace :tournaments do
       end
     end
   end
+
+  desc 'update leaderboards'
+  task :update_leaderboards => :environment do
+    tournaments = Tournament.all
+    tournaments.each do |tournament|
+      uid = tournament[:uid]
+      options = {uid: uid}
+      response = Sportsdata.golf.tournament_leaderboard(options)
+      sleep(1)
+      leaderboard = response['tournament']['leaderboard'].try(:[], 'player')
+
+      if leaderboard
+        leaderboard.each do |player|
+
+        end
+      end
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

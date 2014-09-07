@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :tournaments
   resources :picks
   resources :users
+  resources :results
 end

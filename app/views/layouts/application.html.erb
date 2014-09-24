@@ -9,6 +9,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= body_class %>">
+<%= link_to("All Users", users_path) %> | 
+<%= link_to "Player Reserach", players_path %> |
+<br>
+<br>
   <%= render "flashes" -%>
   <%= yield %>
   <%= render "javascript" %>

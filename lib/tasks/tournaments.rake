@@ -64,7 +64,19 @@ namespace :tournaments do
 
       if leaderboard
         leaderboard.each do |player|
-
+          if player['rounds'].try(:[], 'round').try(:count) == 4
+            player_obj = Player.find_by(uid: player['id'])
+            options = {
+              player: player_obj,
+              tournament: tournament,
+              position: player['position'],
+              money: player['money'],
+              score: player['score'],
+              strokes: player['strokes']
+            }
+            result = Result.find_or_create_by(options)
+            puts "#{result.tournament.event_name} - #{result.player.first_name} #{result.player.last_name} - #{result.position}"
+          end
         end
       end
     end

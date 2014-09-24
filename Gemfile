@@ -24,6 +24,9 @@ gem "title"
 gem "uglifier"
 gem "unicorn"
 
+gem 'foundation-rails'
+
+
 # My Stuff
 # gem 'sportsdata'
 gem 'sportsdata', path: '/Users/pauldornfeld/Dropbox/Code/Gems/sportsdata'

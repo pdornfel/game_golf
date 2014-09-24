@@ -9,8 +9,17 @@ class PicksController < ApplicationController
     user = User.first
     player = Player.find(params[:pick][:player_id])
     tournament = Tournament.find(params[:tournament_id])
-    Pick.create(user: user, player: player, tournament: tournament)
-    redirect_to user_path(User.first)
+    pick = Pick.find_or_initialize_by(user: user, tournament: tournament)
+    pick.player = player
+
+    if pick
+      pick.save
+      flash[:success] = "Succesfully created a new pick"
+      redirect_to user_path(User.first)
+    else
+      flash[:alert] = "Unable to create pick"
+      redirect_to user_path(User.first)
+    end
   end
 
   def destroy
@@ -19,7 +28,7 @@ class PicksController < ApplicationController
     pick = Pick.find_by(tournament: tournament, user: user)
     if pick
       pick.destroy
-      flash[:alert] = "succesfully deleted your pick"
+      flash[:error] = "Succesfully destroyed your pick"
       redirect_to user_path(User.first)
     else
       redirect_to user_path(User.first)

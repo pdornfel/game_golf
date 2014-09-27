@@ -2,9 +2,12 @@
 <br>
 <table>
   <tr>
+    <th>ID</th>
     <th>Event Name</th>
+    <th>Event Start</th>
     <th>Purse</th>
     <th>Pick</th>
+    <th>Winner</th>
     <th>Pick Dropdown</th>
     <th>Submit</th>
     <th>Destroy</th>
@@ -12,17 +15,22 @@
 
   <% @tournaments.each do |tournament| %>
     <tr>
+      <td><%= tournament.id %></td>
       <td><%= link_to(tournament.event_name, tournament_path(tournament)) %></td>
+      <td><%= tournament.tournament_start %></td>
       <td>$<%= tournament.purse %></td>
       <td><%= tournament.pick(User.first).try(:player).try(:first_name) %> <%= tournament.pick(User.first).try(:player).try(:last_name) %></td>
+      <td><%= tournament.winner %></td>
 
-    <%= form_tag("/picks", method: "create") do %>
-      <td><%= collection_select(:pick, :player_id, @players, :id, :name, include_blank: :true) %></td>
-      <%= hidden_field_tag(:tournament_id, tournament.id) %>
-      <td><%= submit_tag("Submit Pick") %></td>
+    <% if tournament.has_not_started_yet %>
+        <%= form_tag("/picks", method: "create") do %>
+          <td><%= collection_select(:pick, :player_id, @players, :id, :name, include_blank: :true) %></td>
+          <%= hidden_field_tag(:tournament_id, tournament.id) %>
+          <td><%= submit_tag("Submit Pick") %></td>
+        <% end %>
+          <td><%= link_to "Destroy Pick", pick_path(tournament), method: 'delete' %></td>
+        <tr>
     <% end %>
-      <td><%= link_to "Destroy Pick", pick_path(tournament), method: 'delete' %></td>
-    <tr>
   <% end %>
 
 </table>

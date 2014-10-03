@@ -31,6 +31,8 @@ gem 'foundation-rails'
 # gem 'sportsdata'
 gem 'sportsdata', path: '/Users/pauldornfeld/Dropbox/Code/Gems/sportsdata'
 
+gem 'sorcery'
+
 group :development do
   gem "spring"
   gem "spring-commands-rspec"

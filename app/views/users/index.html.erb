@@ -8,7 +8,7 @@
   <% @users.each do |user| %>
   <tr>
     <td><%= user.full_name %></td>
-    <td>$0.00</td>
+    <td><%= user.earnings_formatted %></td>
     <td></td>
     <td><%= link_to("Go To User", user_path(user)) %></td>
   </tr>

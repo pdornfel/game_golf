@@ -17,12 +17,12 @@
     <tr>
       <td><%= tournament.id %></td>
       <td><%= link_to(tournament.event_name, tournament_path(tournament)) %></td>
-      <td><%= tournament.tournament_start %></td>
-      <td>$<%= tournament.purse %></td>
+      <td><%= tournament.tournament_start_formatted %></td>
+      <td><%= tournament.purse_formatted %></td>
       <td><%= tournament.pick(@user).try(:player).try(:first_name) %> <%= tournament.pick(@user).try(:player).try(:last_name) %></td>
       <td><%= tournament.winner %></td>
 
-    <% if tournament.has_not_started_yet %>
+    <% if tournament.has_not_started_yet && current_user == @user %>
         <%= form_tag("/picks", method: "create") do %>
           <td><%= collection_select(:pick, :player_id, @players, :id, :name, include_blank: :true) %></td>
           <%= hidden_field_tag(:tournament_id, tournament.id) %>

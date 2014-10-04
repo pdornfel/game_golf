@@ -4,9 +4,10 @@ namespace :earnings do
   task :calculate => :environment do
     users = User.all
     users.each do |user|
+      user.earnings = 0
       user.picks.each do |pick|
         earnings = calculate_earnings(pick)
-        user.earnings = earnings
+        user.earnings += earnings
       end
       user.earnings_updated_at = DateTime.now
       user.save

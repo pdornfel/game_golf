@@ -9,7 +9,7 @@
   <tr>
     <td><%= user.full_name %></td>
     <td><%= user.earnings_formatted %></td>
-    <td></td>
+    <td><%= user.earnings_updated_at.strftime('%B %d, %Y at %I:%M%P') %></td>
     <td><%= link_to("Go To User", user_path(user)) %></td>
   </tr>
   <% end %>

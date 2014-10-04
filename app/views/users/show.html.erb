@@ -20,7 +20,7 @@
       <td><%= tournament.tournament_start_formatted %></td>
       <td><%= tournament.purse_formatted %></td>
       <td><%= tournament.pick(@user).try(:player).try(:first_name) %> <%= tournament.pick(@user).try(:player).try(:last_name) %></td>
-      <td><%= tournament.winner %></td>
+      <td><%= tournament.winner_formatted %></td>
 
     <% if tournament.has_not_started_yet && current_user == @user %>
         <%= form_tag("/picks", method: "create") do %>

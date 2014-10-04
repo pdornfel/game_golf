@@ -16,11 +16,15 @@ class Tournament < ActiveRecord::Base
     tournament_start > Date.today
   end
 
-  def winner
+  def winner_formatted
     result = results.find_by(position: 1)
     if result
       "#{result.player.first_name} #{result.player.last_name}"
     end
+  end
+
+  def winner
+    self.results.winner
   end
 
   def purse_formatted

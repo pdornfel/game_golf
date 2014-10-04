@@ -6,7 +6,7 @@ class PicksController < ApplicationController
   end
 
   def create
-    user = User.first
+    user = current_user
     player = Player.find(params[:pick][:player_id])
     tournament = Tournament.find(params[:tournament_id])
     pick = Pick.find_or_initialize_by(user: user, tournament: tournament)
@@ -15,23 +15,23 @@ class PicksController < ApplicationController
     if pick
       pick.save
       flash[:success] = "Succesfully created a new pick"
-      redirect_to user_path(User.first)
+      redirect_to user_path(user)
     else
       flash[:alert] = "Unable to create pick"
-      redirect_to user_path(User.first)
+      redirect_to user_path(user)
     end
   end
 
   def destroy
     tournament = Tournament.find(params[:id])
-    user = User.first
+    user = current_user
     pick = Pick.find_by(tournament: tournament, user: user)
     if pick
       pick.destroy
       flash[:error] = "Succesfully destroyed your pick"
-      redirect_to user_path(User.first)
+      redirect_to user_path(user)
     else
-      redirect_to user_path(User.first)
+      redirect_to user_path(user)
     end
   end
 

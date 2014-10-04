@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20141004182319) do
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
     t.integer  "earnings"
+    t.datetime "earnings_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -7,14 +7,17 @@ namespace :setup do
 
     Rake::Task['setup:create_user'].invoke
     Rake::Task['setup:create_pick'].invoke
+
+    Rake::Task['earnings:calculate'].invoke
   end
+
 
   desc 'create a new user'
   task :create_user => :environment do
     user = FactoryGirl.build(:user)
     unless User.find_by(email: user.email)
       user.save
-      puts "created user - #{user.name}"
+      puts "created user - #{user.full_name}"
     end
   end
 
@@ -23,9 +26,8 @@ namespace :setup do
     user = User.first
     player = Player.find_by(world_rank: 1)
     tournament = Tournament.first
-    Pick.destroy_all
-    pick = Pick.create(user: user, player: player, tournament: tournament)
-    puts "created a new pick - #{pick.user.name}, #{pick.player.last_name}, #{pick.tournament.event_name}"
+    pick = Pick.find_or_create_by(user: user, player: player, tournament: tournament)
+    puts "created a new pick - #{pick.user.full_name}, #{pick.player.last_name}, #{pick.tournament.event_name}"
   end
 
 

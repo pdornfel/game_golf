@@ -60,11 +60,13 @@ namespace :tournaments do
       options = {uid: uid}
       response = Sportsdata.golf.tournament_leaderboard(options)
       sleep(1)
-      leaderboard = response['tournament']['leaderboard'].try(:[], 'player')
 
-      if leaderboard
-        leaderboard.each do |player|
-          if player['rounds'].try(:[], 'round').try(:count) == 4
+      if response['tournament']['status'] == 'closed'
+      
+        leaderboard = response['tournament']['leaderboard'].try(:[], 'player')
+
+        if leaderboard
+          leaderboard.each do |player|
             player_obj = Player.find_by(uid: player['id'])
             options = {
               player: player_obj,
@@ -82,37 +84,4 @@ namespace :tournaments do
     end
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -1,4 +1,4 @@
-<b class='name_header'><%= User.first.full_name %></b>
+<b class='name_header'><%= @user.full_name %></b>
 <br>
 <table>
   <tr>
@@ -19,7 +19,7 @@
       <td><%= link_to(tournament.event_name, tournament_path(tournament)) %></td>
       <td><%= tournament.tournament_start %></td>
       <td>$<%= tournament.purse %></td>
-      <td><%= tournament.pick(User.first).try(:player).try(:first_name) %> <%= tournament.pick(User.first).try(:player).try(:last_name) %></td>
+      <td><%= tournament.pick(@user).try(:player).try(:first_name) %> <%= tournament.pick(@user).try(:player).try(:last_name) %></td>
       <td><%= tournament.winner %></td>
 
     <% if tournament.has_not_started_yet %>

@@ -9,10 +9,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= body_class %>">
-<%= link_to("All Users", users_path) %> | 
-<%= link_to "Player Reserach", players_path %> |
-<br>
-<br>
+
+<% if current_user %>
+      Logged in as <%= current_user.full_name %> |
+  <%= link_to("All Users", users_path) %> | 
+  <%= link_to "Player Reserach", players_path %> |
+  <br>
+  <%= link_to "Signout", logout_path %>
+  <br>
+  <br>
+<% else %>
+  
+  <%= link_to "Login", login_path %> |
+  <%= link_to "Signup", signup_path %> |
+
+<% end %>
+
   <%= render "flashes" -%>
   <%= yield %>
   <%= render "javascript" %>

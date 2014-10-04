@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :require_login, except: [:new, :create]
+
   def new
     @user = User.new
   end
@@ -14,8 +16,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
     @tournaments = Tournament.all
-    @users = User.find(params[:id])
     @players = Player.all.ranked
   end
 

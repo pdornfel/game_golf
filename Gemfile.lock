@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:pdornfel/sportsdata.git
+  remote: https://github.com/pdornfel/sportsdata
   revision: 362e5ac01fe197be66b56e2e0e56503bf52f955c
   specs:
     sportsdata (1.20.3)

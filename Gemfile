@@ -33,6 +33,8 @@ gem 'sportsdata', :git => 'https://github.com/pdornfel/sportsdata'
 
 gem 'sorcery'
 
+gem "factory_girl_rails"
+
 group :development do
   gem "spring"
   gem "spring-commands-rspec"
@@ -42,7 +44,6 @@ group :development, :test do
   gem "awesome_print"
   gem "byebug"
   gem "dotenv-rails"
-  gem "factory_girl_rails"
   gem "pry-rails"
   gem "rspec-rails", "~> 3.0.0"
 end

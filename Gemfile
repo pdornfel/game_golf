@@ -29,7 +29,7 @@ gem 'foundation-rails'
 
 # My Stuff
 # gem 'sportsdata'
-gem 'sporsdata', :git => 'git@github.com:pdornfel/sportsdata.git'
+gem 'sportsdata', :git => 'git@github.com:pdornfel/sportsdata.git'
 
 gem 'sorcery'
 

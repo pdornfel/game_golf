@@ -14,6 +14,14 @@ class User < ActiveRecord::Base
     "$#{separate_comma(self.earnings)}"
   end
 
+  def earnings_updated_at_formatted
+    if earnings_updated_at.nil?
+      "Not Updated Yet"
+    else
+      earnings_updated_at.in_time_zone(Time.zone).strftime('%B %d, %Y at %I:%M%P')
+    end
+  end
+
   private
 
 def separate_comma(number)

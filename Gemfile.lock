@@ -1,3 +1,14 @@
+GIT
+  remote: git@github.com:pdornfel/sportsdata.git
+  revision: 362e5ac01fe197be66b56e2e0e56503bf52f955c
+  specs:
+    sportsdata (1.20.3)
+      activesupport
+      faraday
+      faraday_middleware
+      hashie
+      multi_xml
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -209,12 +220,6 @@ GEM
       bcrypt (~> 3.1)
       oauth (~> 0.4, >= 0.4.4)
       oauth2 (>= 0.8.0, < 1.0.0)
-    sportsdata (1.20.5)
-      activesupport
-      faraday
-      faraday_middleware
-      hashie
-      multi_xml
     spring (1.1.3)
     spring-commands-rspec (1.0.2)
       spring (>= 0.9.1)
@@ -292,7 +297,7 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   sorcery
-  sportsdata
+  sportsdata!
   spring
   spring-commands-rspec
   timecop

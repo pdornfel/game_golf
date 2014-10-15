@@ -8,6 +8,7 @@ namespace :tournaments do
 
   desc 'populate tournaments'
   task :populate_tournaments => :environment do
+
     sleep(1)
     tournaments = Sportsdata.golf.tournament_schedule({year: '2015'})
 
@@ -25,6 +26,7 @@ namespace :tournaments do
         course_options[:yardage] = tournament[:course_info]["yardage"]
         course = Course.find_or_create_by(course_options)
 
+        sleep(1)
         unless tournament[:course_info]['holes'].nil?
           tournament[:course_info]["holes"]["hole"].each do |hole|
             hole_options = {}

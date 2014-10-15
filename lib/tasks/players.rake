@@ -1,8 +1,14 @@
 namespace :players do
 
+  desc "populate players and seed rankings"
+  task :do_all => :environment do
+    Rake::Task['players:seed_profiles'].invoke
+    Rake::Task['players:populate_rankings'].invoke
+  end
+
   desc "seed players table"
   task :seed_profiles => :environment do
-    players = Sportsdata.golf.player_profiles
+    players = Sportsdata.golf.player_profiles({year: '2015'})
     players.each_with_index do |player, index|
       options = {}
       options[:uid] = player.uid
@@ -22,7 +28,7 @@ namespace :players do
 
   desc "populate rankings in players table"
   task :populate_rankings => :environment do
-    stats = Sportsdata.golf.seasonal_stats
+    stats = Sportsdata.golf.seasonal_stats({year: '2015'})
     stats.each do |data|
       player = Player.find_by(uid: data.player_uid)
       options = {}
@@ -46,11 +52,5 @@ namespace :players do
       player.update(options)
       puts "#{player.first_name} #{player.last_name} updated with world rank of => #{data.world_rank}"
     end
-  end
-
-  desc "populate players and seed rankings"
-  task :do_all => :environment do
-    Rake::Task['players:seed_profiles'].invoke
-    Rake::Task['players:populate_rankings'].invoke
   end
 end

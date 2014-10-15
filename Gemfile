@@ -30,6 +30,7 @@ gem 'foundation-rails'
 # My Stuff
 # gem 'sportsdata'
 gem 'sportsdata', :git => 'https://github.com/pdornfel/sportsdata'
+# gem 'sportsdata', path: '/Users/pauldornfeld/Dropbox/Code/Gems/sportsdata'
 
 gem 'sorcery'
 
@@ -46,6 +47,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "pry-rails"
   gem "rspec-rails", "~> 3.0.0"
+  gem 'quiet_assets'
 end
 
 group :test do

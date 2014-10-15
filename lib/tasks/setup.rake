@@ -24,7 +24,7 @@ namespace :setup do
   desc 'create a pick'
   task :create_pick => :environment do
     user = User.first
-    player = Player.find_by(world_rank: 1)
+    player = Player.find_by(first_name: "Rory")
     tournament = Tournament.first
     pick = Pick.find_or_create_by(user: user, player: player, tournament: tournament)
     puts "created a new pick - #{pick.user.full_name}, #{pick.player.last_name}, #{pick.tournament.event_name}"

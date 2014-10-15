@@ -4,6 +4,20 @@ class Tournament < ActiveRecord::Base
 
   has_many :results
 
+  def self.all_2014
+    start_year = Date.parse("October 1 2013")
+    end_year = Date.parse("October 1 2014")
+    Tournament.where(['tournament_start >= ? AND tournament_start <= ?', start_year, end_year])
+    # 10/1/2013 - 10/1/2014 = 2014 season
+  end
+
+  def self.all_2015
+    start_year = Date.parse("October 1 2014")
+    end_year = Date.parse("November 1 2015")
+    Tournament.where(['tournament_start >= ? AND tournament_start <= ?', start_year, end_year])
+    # 10/1/2014 - 11/1/2015 = 2015 season
+  end 
+
   def pick(user)
     Pick.find_by(tournament: self.id, user: user)
   end

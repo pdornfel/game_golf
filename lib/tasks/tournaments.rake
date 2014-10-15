@@ -8,8 +8,8 @@ namespace :tournaments do
 
   desc 'populate tournaments'
   task :populate_tournaments => :environment do
-    tournaments = Sportsdata.golf.tournament_schedule
     sleep(1)
+    tournaments = Sportsdata.golf.tournament_schedule({year: '2015'})
 
     tournaments.each_with_index do |tournament, index|
 
@@ -25,13 +25,15 @@ namespace :tournaments do
         course_options[:yardage] = tournament[:course_info]["yardage"]
         course = Course.find_or_create_by(course_options)
 
-        tournament[:course_info]["holes"]["hole"].each do |hole|
-          hole_options = {}
-          hole_options[:course_id] = course.id
-          hole_options[:hole_number] = hole["number"]
-          hole_options[:hole_yardage] = hole["yardage"]
-          hole_options[:par] = hole["par"]
-          Hole.find_or_create_by(hole_options)
+        unless tournament[:course_info]['holes'].nil?
+          tournament[:course_info]["holes"]["hole"].each do |hole|
+            hole_options = {}
+            hole_options[:course_id] = course.id
+            hole_options[:hole_number] = hole["number"]
+            hole_options[:hole_yardage] = hole["yardage"]
+            hole_options[:par] = hole["par"]
+            Hole.find_or_create_by(hole_options)
+          end
         end
 
         tournament_options = {}
@@ -54,12 +56,14 @@ namespace :tournaments do
 
   desc 'update leaderboards'
   task :update_leaderboards => :environment do
-    tournaments = Tournament.all
+    tournaments = Tournament.all_2015
     tournaments.each do |tournament|
+      puts tournament.event_name
       uid = tournament[:uid]
-      options = {uid: uid}
-      response = Sportsdata.golf.tournament_leaderboard(options)
+      options = {uid: uid,
+      }
       sleep(1)
+      response = Sportsdata.golf.tournament_leaderboard(options)
 
       if response['tournament']['status'] == 'closed'
       
@@ -76,8 +80,10 @@ namespace :tournaments do
               score: player['score'],
               strokes: player['strokes']
             }
-            result = Result.find_or_create_by(options)
-            puts "#{result.tournament.event_name} - #{result.player.first_name} #{result.player.last_name} - #{result.position}"
+            if options[:money] != nil
+              result = Result.find_or_create_by(options)  
+              puts "#{result.tournament.event_name} - #{result.player.first_name} #{result.player.last_name} - #{result.position}"
+            end
           end
         end
       end

@@ -1,6 +1,6 @@
 class Pick < ActiveRecord::Base
 
-  validates :user, :uniqueness => {:scope => :player } 
+  validates :user, :uniqueness => {:scope => :player, message: "Cannot Pick Same Player Twice" }
 
   belongs_to :user
   belongs_to :player

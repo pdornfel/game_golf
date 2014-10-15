@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @tournaments = Tournament.all
+    @tournaments = Tournament.all_2015
     @players = Player.all.ranked
   end
 

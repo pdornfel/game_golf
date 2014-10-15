@@ -12,12 +12,11 @@ class PicksController < ApplicationController
     pick = Pick.find_or_initialize_by(user: user, tournament: tournament)
     pick.player = player
 
-    if pick
-      pick.save
+    if pick.save
       flash[:success] = "Succesfully created a new pick"
       redirect_to user_path(user)
     else
-      flash[:alert] = "Unable to create pick"
+      flash[:error] = pick.errors.full_messages
       redirect_to user_path(user)
     end
   end

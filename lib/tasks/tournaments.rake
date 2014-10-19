@@ -68,7 +68,6 @@ namespace :tournaments do
       response = Sportsdata.golf.tournament_leaderboard(options)
 
       if response['tournament']['status'] == 'closed'
-      # if response.try(:[],'tournament').try(:[],'status') == 'closed'
       
         leaderboard = response['tournament']['leaderboard'].try(:[], 'player')
 

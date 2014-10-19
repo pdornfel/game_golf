@@ -17,9 +17,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @tournaments = Tournament.all_2015
-    @players = Player.all.ranked
+    if current_user == User.find(params[:id])
+      @user = User.find(params[:id])
+      @tournaments = Tournament.all_2015
+      @players = Player.all.ranked
+    else
+      redirect_to users_path
+    end
   end
 
   def index

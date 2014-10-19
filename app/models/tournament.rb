@@ -4,6 +4,10 @@ class Tournament < ActiveRecord::Base
 
   has_many :results
 
+  def to_param
+    "#{id} #{event_name}".parameterize
+  end
+
   def self.all_2014
     start_year = Date.parse("October 1 2013")
     end_year = Date.parse("October 1 2014")

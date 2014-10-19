@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   authenticates_with_sorcery!
 
   validates_confirmation_of :password
@@ -9,6 +10,10 @@ class User < ActiveRecord::Base
 
   has_many :picks
   has_many :players, through: :picks
+
+  def to_param
+    "#{id} #{full_name}".parameterize
+  end
 
   def earnings_formatted
     "$#{separate_comma(self.earnings)}"

@@ -27,8 +27,7 @@ namespace :tournaments do
         course = Course.find_or_create_by(course_options)
 
         sleep(1)
-        binding.pry
-        unless tournament[:course_info]['holes'].nil?
+        if tournament[:course_info]["holes"].try(:[], 'hole').kind_of?(Array)
           tournament[:course_info]["holes"]["hole"].each do |hole|
             hole_options = {}
             hole_options[:course_id] = course.id

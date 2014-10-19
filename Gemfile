@@ -41,11 +41,12 @@ group :development do
   gem "spring-commands-rspec"
 end
 
+gem "pry-rails"
+
 group :development, :test do
   gem "awesome_print"
   gem "byebug"
   gem "dotenv-rails"
-  gem "pry-rails"
   gem "rspec-rails", "~> 3.0.0"
   gem 'quiet_assets'
 end

@@ -1,32 +1,66 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="ROBOTS" content="NOODP" />
-  <meta name="viewport" content="initial-scale=1" />
-  <title><%= title %></title>
-  <%= stylesheet_link_tag :application, media: "all" %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="<%= body_class %>">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<% if current_user %>
-      Logged in as <%= current_user.full_name %> |
-  <%= link_to("All Users", users_path) %> | 
-  <%= link_to "Player Reserach", players_path %> |
-  <br>
-  <%= link_to "Signout", logout_path %>
-  <br>
-  <br>
-<% else %>
-  
-  <%= link_to "Login", login_path %> |
-  <%= link_to "Signup", signup_path %> |
+    <title><%= content_for?(:title) ? yield(:title) : "Game Golf" %></title>
 
-<% end %>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
 
-  <%= render "flashes" -%>
-  <%= yield %>
-  <%= render "javascript" %>
-</body>
+  <body>
+
+
+  <nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <% if current_user %>
+        <h1><a href="#"><%= current_user.email %></a></h1>
+      <% end %>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <% if current_user %>
+        <li class="active"><a href="#"><%= link_to "Signout", logout_path %></a></li>
+      <% end %>
+      <!-- <li class="has-dropdown">
+        <a href="#">Right Button Dropdown</a>
+        <ul class="dropdown">
+          <li><a href="#">First link in dropdown</a></li>
+          <li class="active"><a href="#">Active link in dropdown</a></li> -->
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Left Nav Section -->
+    <ul class="left">
+    <% if current_user %>
+      <li><a href="#"><%= link_to("Your League", users_path) %></a></li>
+      <li><a href="#"><%= link_to "Player Reserach", players_path %></a></li>
+    <% else %>
+      <li><a href="#"> <%= link_to "Login", login_path %></a></li>
+      <li><a href="#"><%= link_to "Signup", signup_path %></a></li>
+    <% end %>
+    </ul>
+
+
+  </section>
+</nav>
+
+
+    <%= render "flashes" -%>
+
+    <%= yield %>
+
+    <%= render "javascript" %>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>

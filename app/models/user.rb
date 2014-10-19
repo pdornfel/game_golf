@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     if earnings_updated_at.nil?
       "Not Updated Yet"
     else
-      earnings_updated_at.in_time_zone(Time.zone).strftime('%B %d, %Y at %I:%M%P')
+      earnings_updated_at.in_time_zone(Time.zone).strftime('%B %d')
     end
   end
 

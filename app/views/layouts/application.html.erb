@@ -31,11 +31,15 @@
       <% if current_user %>
         <li class="active"><a href="#"><%= link_to "Signout", logout_path %></a></li>
       <% end %>
-      <!-- <li class="has-dropdown">
-        <a href="#">Right Button Dropdown</a>
+      <li class="has-dropdown">
+        <a href="#"><%= "Your Leagues" if current_user %></a>
         <ul class="dropdown">
-          <li><a href="#">First link in dropdown</a></li>
-          <li class="active"><a href="#">Active link in dropdown</a></li> -->
+            <% if current_user %>
+            <% current_user.groups.each do |group| %>
+              <li><a href="#"><%= link_to(group.name, users_path(group_id: group)) %></a></li>
+            <% end %>
+            <% end %>
+          <!-- <li class="active"><a href="#">Active link in dropdown</a></li> -->
         </ul>
       </li>
     </ul>
@@ -43,7 +47,7 @@
     <!-- Left Nav Section -->
     <ul class="left">
     <% if current_user %>
-      <li><a href="#"><%= link_to("Your League", users_path) %></a></li>
+      <li><a href="#"><%= link_to(@group.name, users_path(:group_id => @group)) %></a></li>
       <li><a href="#"><%= link_to "Player Reserach", players_path %></a></li>
     <% else %>
       <li><a href="#"> <%= link_to "Login", login_path %></a></li>

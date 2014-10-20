@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :picks
   has_many :players, through: :picks
+  has_and_belongs_to_many :groups, -> { uniq }
 
   def to_param
     "#{id} #{full_name}".parameterize

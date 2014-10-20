@@ -16,7 +16,7 @@
             <td><%= "#{user.picks.count}/#{Tournament.all_2015.count}" %></td>
             <td><%= user.earnings_updated_at_formatted %></td>
             <% if current_user == user %>
-              <td><%= link_to("View My Picks", user_path(user)) %></td>
+              <td><%= link_to("View My Picks", user_path(user, :group_id => @group)) %></td>
             <% else %>
               <td></td>
             <% end %>

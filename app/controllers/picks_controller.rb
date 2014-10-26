@@ -9,15 +9,16 @@ class PicksController < ApplicationController
     user = current_user
     player = Player.find(params[:pick][:player_id])
     tournament = Tournament.find(params[:tournament_id])
+    group = Group.find(params[:group_id])
     pick = Pick.find_or_initialize_by(user: user, tournament: tournament)
     pick.player = player
 
     if pick.save
       flash[:success] = "Succesfully created a new pick"
-      redirect_to user_path(user)
+      redirect_to user_path(user, group_id: group.id)
     else
       flash[:error] = pick.errors.full_messages
-      redirect_to user_path(user)
+      redirect_to user_path(user, group_id: group.id)
     end
   end
 
@@ -28,9 +29,9 @@ class PicksController < ApplicationController
     if pick
       pick.destroy
       flash[:error] = "Succesfully destroyed your pick"
-      redirect_to user_path(user)
+      redirect_to user_path(user, :group_id => params[:group_id])
     else
-      redirect_to user_path(user)
+      redirect_to user_path(user, :group_id => params[:group_id])
     end
   end
 

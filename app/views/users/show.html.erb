@@ -28,12 +28,13 @@
               <td><%= tournament.pick(@user).try(:player).try(:first_name) %> <%= tournament.pick(@user).try(:player).try(:last_name) %></td>
               <td><%= tournament.winner_formatted %></td>
             <% if tournament.has_not_started_yet && current_user == @user %>
-                <%= form_tag("/picks", method: "create") do %>
+                <%= form_tag(picks_path) do %>
                   <td><%= collection_select(:pick, :player_id, @players, :id, :name, include_blank: :true) %></td>
                     <%= hidden_field_tag(:tournament_id, tournament.id) %>
+                    <%= hidden_field_tag(:group_id, params[:group_id]) %>
                   <td><%= submit_tag("Submit Pick") %></td>
                 <% end %>
-                  <td><%= link_to "Destroy Pick", pick_path(tournament), method: 'delete' %></td>
+                  <td><%= link_to "Destroy Pick", pick_path(tournament, :group_id => params[:group_id]), method: 'delete' %></td>
             <% else %>
               <td></td>
               <td></td>

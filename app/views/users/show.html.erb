@@ -9,8 +9,8 @@
             <th width='50'>ID</th>
             <th width='150'>Event Name</th>
             <th width='150'>Event Start</th>
-            <th width='150'>Purse</th>
-            <th width='150'>Pick</th>
+            <th width='150'>Purse / Earning</th>
+            <th width='150'>Your Pick</th>
             <th width='150'>Winner</th>
             <th width='225'>Pick Dropdown</th>
             <th width='150'>Submit</th>
@@ -24,8 +24,13 @@
               <td><%= tournament.id %></td>
               <td><%= link_to(tournament.event_name, tournament_path(tournament)) %></td>
               <td><%= tournament.tournament_start_formatted %></td>
-              <td><%= tournament.purse_formatted %></td>
-              <td><%= tournament.pick(@user).try(:player).try(:first_name) %> <%= tournament.pick(@user).try(:player).try(:last_name) %></td>
+              <% if tournament.pick(@user).try(:result).try(:money) %>
+                <td><strong>$<%= separate_comma(tournament.pick(@user).result.money) %></strong></td>
+                <td><strong><%= tournament.pick(@user).try(:player).try(:first_name) %> <%= tournament.pick(@user).try(:player).try(:last_name) %></strong></td>
+              <% else %>
+                <td><%= tournament.purse_formatted %></td>
+                <td><%= tournament.pick(@user).try(:player).try(:first_name) %> <%= tournament.pick(@user).try(:player).try(:last_name) %></td>
+              <% end %>
               <td><%= tournament.winner_formatted %></td>
             <% if tournament.has_not_started_yet && current_user == @user %>
                 <%= form_tag(picks_path) do %>

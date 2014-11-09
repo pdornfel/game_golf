@@ -6,4 +6,8 @@ class Pick < ActiveRecord::Base
   belongs_to :player
   belongs_to :tournament
 
+  def result
+    self.tournament.results.find_by(player: self.player)
+  end
+
 end

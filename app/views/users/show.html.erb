@@ -22,7 +22,7 @@
           <% @tournaments.each do |tournament| %>
             <tr>
               <td><%= tournament.id %></td>
-              <td><%= link_to(tournament.event_name, tournament_path(tournament)) %></td>
+              <td><%= link_to(tournament.event_name, tournament_path(tournament, group_id: params[:group_id])) %></td>
               <td><%= tournament.tournament_start_formatted %></td>
               <% if tournament.pick(@user).try(:result).try(:money) %>
                 <td><strong>$<%= separate_comma(tournament.pick(@user).result.money) %></strong></td>

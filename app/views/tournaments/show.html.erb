@@ -1,6 +1,6 @@
 <b><%= User.first.full_name %></b>
 <br>
-<%= link_to "Back", user_path(User.first) %>
+<%= link_to "Back", user_path(User.first, group_id: params[:group_id]) %>
 
 <br>
 
